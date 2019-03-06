@@ -1,0 +1,98 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box; }
+
+body {
+  background-color: #1B1E27;
+  color: white;
+  font-family: 'Space Mono', monospace;
+  font-size: 20px; }
+
+.background-sky {
+  background: #1B1E27 url(http://www.script-tutorials.com/demos/360/images/stars.png) top center;
+  z-index: 0;
+  animation: stars 10s linear infinite forwards; }
+
+.first {
+  text-align: center;
+  color: #9BA4C1; }
+  .first h1 {
+    font-family: 'Josefin Sans', sans-serif;
+    letter-spacing: 2px;
+    padding: 30px;
+    color: #D4D8E5;
+    margin: 0 auto;
+    font-size: 2rem; }
+  .first p {
+    border-top: 0.2px solid #2C303F;
+    font-size: 1rem;
+    padding: 30px 0;
+    margin: 0 30px; }
+  .first i {
+    font-size: 10rem; }
+  .first button {
+    border: none;
+    background-color: transparent;
+    color: #D4D8E5;
+    cursor: pointer;
+    position: relative;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto; }
+    .first button i {
+      font-size: 2rem;
+      color: #9BA4C1;
+      animation: arrows 1000ms linear infinite;
+      position: absolute;
+      top: 80px;
+      right: calc(50%- 15px); }
+
+.second .rocket {
+  height: 30vh;
+  position: absolute;
+  top: 40px;
+  width: 100vw; }
+  .second .rocket i {
+    font-size: 5rem;
+    color: #9BA4C1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: rocket 10s linear infinite; }
+
+@keyframes stars {
+  from {
+    background-position: 100% 0; }
+  to {
+    background-position: 0 0; } }
+
+@keyframes arrows {
+  0% {
+    top: 80px; }
+  50% {
+    top: 90px; }
+  100% {
+    top: 80px; } }
+
+@keyframes rocket {
+  0% {
+    top: 0;
+    left: 0; }
+  20% {
+    top: 100px;
+    left: 100px; }
+  40% {
+    top: 50px;
+    left: 200px; }
+  60% {
+    top: 100px;
+    left: 500px; }
+  80% {
+    top: 70px;
+    left: 800px; }
+  100% {
+    bottom: 0;
+    right: 0; } }
+
