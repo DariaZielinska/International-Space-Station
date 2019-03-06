@@ -2,19 +2,18 @@ import React from 'react'
 import ReactFullpage from '@fullpage/react-fullpage';
 
 
-/*
 let prev = {
-    long: undefined,
-    lat: undefined,
-    time: undefined
+    longitude: 0,
+    latitude: 0,
+    timestamp: 0
 };
-
 
 let curr = {
-    long: undefined,
-    lat: undefined,
-    time: undefined
+    longitude: 0,
+    latitude: 0,
+    timestamp: 0
 };
+
 
 let generalInfo = {
     prev: prev,
@@ -22,18 +21,32 @@ let generalInfo = {
     overallDistance: 0,
 
     setNext: function(position, timestamp){
+        this.prev = this.current;
+        this.current.longitude = position.longitude;
+        this.current.latitude = position.latitude;
+        this.current.timestamp = timestamp;
+        console.log(this.current);
+    },
 
+    getDistance: function() {
+        return 0;
+    },
+
+    getSpeed: function(){
+        return 0;
     }
 };
-*/
 
-
-
+function getIss2(){
+    return {
+        Isss: 0
+    }
+}
 class Section1 extends React.Component{
     render(){
         return ( <div>
-            <p>latitude: {this.props.issPosition.latitude}</p>
-            <p>longitude: {this.props.issPosition.longitude}</p>
+            <p>latitude: {this.props.generalInfo.current.latitude}</p>
+            <p>longitude: {this.props.generalInfo.current.longitude}</p>
             </div>)
     }
 }
@@ -43,16 +56,17 @@ class Fullpage extends React.Component{
         super(props);
         this.state = {
             isError: false,  //rozwinac to jak bedzie blad
-            issPosition: {},
+            generalInfo: generalInfo,
         }
     }
 
     render(){
+
         return <div className="background-sky">
             <ReactFullpage
                 render={({ state, fullpageApi }) => {
                     return (
-                        <ReactFullpage.Wrapper>
+                        <ReactFullpage.Wrapper  >
 
                                 <div className="section first">
 
@@ -73,13 +87,13 @@ class Fullpage extends React.Component{
                                     <div className="rocket">
                                         <i className="fas fa-space-shuttle"> </i>
                                     </div>
-                                    <Section1 issPosition={this.state.issPosition}/>
-                                    <p>z jaka predkoscia porusza sie ISS? (cyferki rosna az do momentu kiedy osiągną odpowiednią liczbę)</p>
-                                    <p>jaką drogę przebyła ISS od początku zapisanych odczytów?</p>
+                                    <Section1 generalInfo={this.state.generalInfo}/>
+                                    <p>TODO: get speed </p>
+                                    <p>TODO: get distance</p>
                                     <button onClick={this.getISS}> REFRESH </button>
 
-                                    <button onClick={this.getDistance}>oblicz dystans</button>
-                                    <button onClick={this.getSpeed}>oblicz prędkość</button>
+                                    <button onClick={this.getDistance}>speed</button>
+                                    <button onClick={this.getSpeed}>distance</button>
                                 </div>
 
                         </ReactFullpage.Wrapper>
@@ -106,23 +120,16 @@ class Fullpage extends React.Component{
             })
             .then(issPositionJSON => {
 
-                //generalInfo.setNext(issPositionJSON.iss_position, issPositionJSON.timestamp);
+                generalInfo.setNext(issPositionJSON.iss_position, issPositionJSON.timestamp);
 
                 this.setState({
-                    issPosition: issPositionJSON.iss_position,
-                    //generalInfo: generalInfo,
+                    generalInfo: generalInfo,
                 });
             })
             .catch(()=>{this.setState({isError: true})})
     };
 
-    getDistance = () => {
 
-    };
-
-    getSpeed = () => {
-
-    };
 SPEED            //     points = [{lat: .., lng: ..}, ... ]; // 6 points
                 // distancesSum = 0;
                 // for(i = 0; i < distances.length - 1; i++) {
