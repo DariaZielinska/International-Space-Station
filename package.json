@@ -2,9 +2,12 @@
   "name": "webpack-react",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://dariazielinska.github.io/International-Space-Station",
   "main": "webpack.config.js",
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server --open --mode development --env.dev",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "./node_modules/.bin/webpack --env.prod"
   },
   "keywords": [],
@@ -44,5 +47,8 @@
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
+  },
+  "dependencies": {
+    "gh-pages": "^2.0.1"
   }
 }
