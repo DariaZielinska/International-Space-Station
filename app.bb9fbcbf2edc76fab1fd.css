@@ -25,7 +25,7 @@ body {
     margin: 0 auto;
     font-size: 2rem; }
   .first p {
-    border-top: 0.2px solid #2C303F;
+    border-top: 1px solid #2C303F;
     font-size: 1rem;
     padding: 30px 0;
     margin: 0 30px; }
@@ -62,6 +62,24 @@ body {
     left: 0;
     animation: rocket 10s linear infinite; }
 
+.second main {
+  text-align: center; }
+  .second main .details {
+    display: flex;
+    justify-content: center; }
+    .second main .details div {
+      border: 3px solid #2C303F;
+      border-radius: 50%;
+      width: 200px;
+      height: 200px;
+      margin: 20px; }
+      .second main .details div p:first-child {
+        padding-top: 70px;
+        font-weight: bolder; }
+  .second main .time {
+    color: #9BA4C1;
+    font-size: 1rem; }
+
 @keyframes stars {
   from {
     background-position: 100% 0; }
@@ -78,21 +96,31 @@ body {
 
 @keyframes rocket {
   0% {
-    top: 0;
-    left: 0; }
+    top: -10%;
+    left: -20%;
+    transform: rotate(-30deg); }
+  10% {
+    transform: rotate(30deg); }
   20% {
-    top: 100px;
-    left: 100px; }
+    top: 50%;
+    left: 5%; }
+  30% {
+    transform: rotate(-30deg); }
   40% {
-    top: 50px;
-    left: 200px; }
+    top: 10%;
+    left: 30%; }
+  50% {
+    transform: rotate(30deg); }
   60% {
-    top: 100px;
-    left: 500px; }
+    top: 60%;
+    left: 55%; }
+  70% {
+    transform: rotate(-30deg); }
   80% {
-    top: 70px;
-    left: 800px; }
+    top: 30%;
+    left: 80%;
+    transform: rotate(-30deg); }
   100% {
-    bottom: 0;
-    right: 0; } }
+    bottom: 105%;
+    left: 105%; } }
 
