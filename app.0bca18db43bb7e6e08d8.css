@@ -12,7 +12,7 @@ body {
 .background-sky {
   background: #1B1E27 url(http://www.script-tutorials.com/demos/360/images/stars.png) top center;
   z-index: 0;
-  animation: stars 10s linear infinite forwards; }
+  animation: stars 15s linear infinite forwards; }
 
 .first {
   text-align: center;
@@ -52,7 +52,7 @@ body {
 .second .rocket {
   height: 30vh;
   position: absolute;
-  top: 40px;
+  top: 0;
   width: 100vw; }
   .second .rocket i {
     font-size: 5rem;
@@ -60,31 +60,37 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    animation: rocket 10s linear infinite; }
+    animation: flying 10s forwards linear infinite, rotation 10s forwards linear infinite; }
 
 .second main {
+  margin-top: 10vh;
   text-align: center; }
-  .second main .details {
+  .second main .localisation {
     display: flex;
     justify-content: center; }
-    .second main .details div {
+    .second main .localisation div {
       border: 3px solid #2C303F;
       border-radius: 50%;
       width: 200px;
       height: 200px;
       margin: 20px; }
-      .second main .details div p:first-child {
+      .second main .localisation div p:first-child {
         padding-top: 70px;
         font-weight: bolder; }
   .second main .time {
     color: #9BA4C1;
     font-size: 1rem; }
+  .second main .details {
+    max-width: 650px;
+    margin: 0 auto; }
 
 @keyframes stars {
-  from {
+  0% {
     background-position: 100% 0; }
+  50% {
+    background-position: 0 0; }
   to {
-    background-position: 0 0; } }
+    background-position: 100% 0; } }
 
 @keyframes arrows {
   0% {
@@ -94,33 +100,37 @@ body {
   100% {
     top: 80px; } }
 
-@keyframes rocket {
+@keyframes flying {
   0% {
     top: -10%;
-    left: -20%;
-    transform: rotate(-30deg); }
-  10% {
-    transform: rotate(30deg); }
+    left: -20%; }
   20% {
     top: 50%;
     left: 5%; }
   30% {
-    transform: rotate(-30deg); }
+    top: 50%; }
   40% {
     top: 10%;
     left: 30%; }
   50% {
-    transform: rotate(30deg); }
+    top: 10%; }
   60% {
     top: 60%;
     left: 55%; }
   70% {
-    transform: rotate(-30deg); }
+    top: 60%; }
   80% {
     top: 30%;
-    left: 80%;
-    transform: rotate(-30deg); }
+    left: 80%; }
   100% {
-    bottom: 105%;
+    top: -10%;
     left: 105%; } }
+
+@keyframes rotation {
+  0%, 17%, 50%, 57% {
+    transform: rotate(30deg); }
+  20%, 27%, 40%, 47%, 60%, 67%, 80% {
+    transform: rotate(0); }
+  30%, 37%, 70%, 77% {
+    transform: rotate(-30deg); } }
 
