@@ -14,7 +14,7 @@ body{
 .background-sky{
   background: #1B1E27 url(http://www.script-tutorials.com/demos/360/images/stars.png) top center;
   z-index:0;
-  animation: stars 10s linear infinite forwards;
+  animation: stars 60s linear infinite forwards;
 }
 
 .first{
@@ -62,7 +62,7 @@ body{
   .rocket{
     height: 30vh;
     position: absolute;
-    top: 40px;
+    top: 0;
     width: 100vw;
     i{
       font-size: 5rem;
@@ -70,10 +70,11 @@ body{
       position: absolute;
       top:0;
       left:0;
-      animation: rocket 10s linear infinite;
+      animation: flying 10s forwards linear infinite, rotation 10s forwards linear infinite;
     }
   }
   main{
+    margin-top: 10vh;
     text-align: center;
     .details{
       display: flex;
@@ -98,12 +99,14 @@ body{
 }
 
 @keyframes stars {
-  from {
+  0%{
     background-position: 100% 0;
-
+  }
+  50%{
+    background-position: 0 0;
   }
   to {
-    background-position: 0 0;
+    background-position: 100% 0;
   }
 }
 
@@ -119,48 +122,51 @@ body{
   }
 }
 
-@keyframes rocket {
+@keyframes flying {
   0%{
     top: -10%;
     left: -20%;
-    transform: rotate(-30deg);
-  }
-  10%{
-    transform: rotate(30deg);
   }
   20%{
     top: 50%;
     left: 5%;
-
   }
   30%{
-    transform: rotate(-30deg);
+    top: 50%;
   }
   40%{
     top: 10%;
     left: 30%;
-
   }
   50%{
-    transform: rotate(30deg);
+    top: 10%
   }
   60%{
     top: 60%;
     left: 55%;
-
   }
   70%{
-    transform: rotate(-30deg);
-
+    top: 60%;
   }
   80%{
     top: 30%;
     left: 80%;
-    transform: rotate(-30deg);
   }
   100%{
-    bottom: 105%;
+    top: -10%;
     left: 105%;
+  }
+}
+
+@keyframes rotation {
+  0%, 17%, 50%, 57% {
+    transform: rotate(30deg);
+  }
+  20%, 27%, 40%, 47%, 60%, 67%, 80%{
+    transform: rotate(0);
+  }
+  30%, 37%, 70%, 77%{
+    transform: rotate(-30deg);
   }
 }
 
