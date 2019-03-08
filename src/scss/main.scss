@@ -76,7 +76,7 @@ body{
   main{
     margin-top: 10vh;
     text-align: center;
-    .details{
+    .localisation{
       display: flex;
       justify-content: center;
       div{
@@ -94,6 +94,10 @@ body{
     .time{
       color: #9BA4C1;
       font-size: 1rem;
+    }
+    .details{
+      max-width: 650px;
+      margin: 0 auto;
     }
   }
 }

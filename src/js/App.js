@@ -23,12 +23,12 @@ let generalInfo = {
 
     setNext: function(position, timestamp){
 
-        //change current data to previous data
+        //here: changing current data to previous
         this.prev.longitude = this.current.longitude;
         this.prev.latitude = this.current.latitude;
         this.prev.timestamp = this.current.timestamp;
 
-        //do actualization of current data
+        //do actualisation of current data
         curr.longitude = position.longitude;
         curr.latitude = position.latitude;
         curr.timestamp = timestamp;
@@ -54,28 +54,35 @@ let generalInfo = {
     },
 };
 
-class Section1 extends React.Component{
-
-    render(){
-        return ( <div>
-                    <p>latitude: {this.props.generalInfo.current.latitude}</p>
-                    <p>longitude: {this.props.generalInfo.current.longitude}</p>
-                    <Timestamp time={this.props.generalInfo.current.timestamp} format='full'/>
-                </div>)
-    }
-}
-
 class Fullpage extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            isError: false,  //rozwinac to jak bedzie blad
+            isError: false,  // TODO: prepare solution when error appear
             all: generalInfo,
             isOk: false,
+            isDetailsVisible: false,
+            buttonText: "SHOW ME MORE DETAILS"
         }
     }
 
     render(){
+
+        // let state = this.state.isDetailsVisible?  "blackButton" : "whiteButton";
+
+        let details = null;
+
+        if (this.state.isDetailsVisible === true) {
+            details = (
+                <div className="details">
+                    <p>It's <strong>{this.state.all.overallDistance}km</strong> travelled by ISS since you're here!</p>
+                    <p>Based on these information, the calculated speed of ISS is <strong>{this.state.all.speed}km/s </strong> now, when average speed = 7,66km/s </p>
+                </div>
+            )
+        }
+
+
+
 
         return <div className="background-sky">
             <ReactFullpage
@@ -100,25 +107,20 @@ class Fullpage extends React.Component{
                                     </div>
                                     <main>
                                         <h2>IT IS NOW ON:</h2>
-                                        <div className="details">
+                                        <div className="localisation">
                                             <div>
-                                                <p>{generalInfo.current.latitude}</p>
+                                                <p>{this.state.all.current.latitude}</p>
                                                 <p>latitude </p>
                                             </div>
                                             <div>
-                                                <p>{generalInfo.current.longitude}</p>
+                                                <p>{this.state.all.current.longitude}</p>
                                                 <p>longitude </p>
                                             </div>
                                         </div>
-                                        <p className="time">(<Timestamp time={generalInfo.current.timestamp} format='full'/>)</p>
-                                        <button onClick={this.getISS}> SHOW ME MORE DETAILS </button>
-                                        <div className="more">
-                                            <p>It's {this.state.all.overallDistance}km travelled by ISS since you're here!</p>
-                                            <p>That's speed is <strong>{this.state.all.speed}km/s </strong> now, when average speed = 7,66km/s </p>
-                                        </div>
+                                        <p className="time">(<Timestamp time={this.state.all.current.timestamp} format='full'/>)</p>
+                                        <button onClick={this.showDetails.bind(this)}> {this.state.buttonText} </button>
+                                        {details}
                                     </main>
-
-
                                 </div>
 
                         </ReactFullpage.Wrapper>
@@ -132,9 +134,19 @@ class Fullpage extends React.Component{
         this.getISS();
     };
 
+    showDetails = () => {
+
+        this.getISS();
+
+        this.setState({
+            buttonText: "REFRESH",
+            isDetailsVisible: true,
+        })
+    };
+
     getISS = () => {
+        //TODO delete this and write async func
         fetch('https://cors-anywhere.herokuapp.com/http://api.open-notify.org/iss-now.json')
-        // old: http://open-notify.org/Open-Notify-API/ISS-Location-Now/ but it's http (danger)
             .then(issPosition => {
                 if (issPosition.ok){
                     return issPosition.json()
@@ -150,7 +162,9 @@ class Fullpage extends React.Component{
                     isOk: true
                 });
             })
-            .catch(()=>{this.setState({isError: true})})
+            .catch(()=>{
+                this.setState({isError: true})
+            })
     };
 }
 
