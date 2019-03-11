@@ -9,8 +9,7 @@ class Fullpage extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            isError: false,  // TODO: prepare solution when error appear
-            isDataCorrectlyFetched: false,
+            isError: false,
             isDetailsVisible: false,
             isLoading: false,
             all: generalInfo,
@@ -70,9 +69,10 @@ class Fullpage extends React.Component{
                                 <div className="rocket">
                                     <i className="fas fa-space-shuttle"> </i>
                                 </div>
+
                                 <main>
                                     <h2>IT IS NOW ON:</h2>
-                                    <div className="localisation">
+                                    <div className="location">
                                         <div>
                                             <p>{this.state.all.current.latitude}</p>
                                             <p>latitude </p>
@@ -84,7 +84,7 @@ class Fullpage extends React.Component{
                                     </div>
                                     <p className="time">(<Timestamp time={this.state.all.current.timestamp} format='full'/>)</p>
                                     <div className="buttonLoader">
-                                        <button onClick={this.showDetails} disabled={!this.state.isDataCorrectlyFetched}> {this.state.buttonText} </button>
+                                        <button onClick={this.showDetails} disabled={this.state.isLoading}> {this.state.buttonText} </button>
                                         {loader}
                                     </div>
                                     {details}
@@ -116,7 +116,7 @@ class Fullpage extends React.Component{
         this.setState({
             isLoading: true,
         });
-        //TODO delete this and write async func
+        //TODO maybe delete this and write async func?
         fetch('https://cors-anywhere.herokuapp.com/http://api.open-notify.org/iss-now.json')
             .then(result => {
                 // console.log(result);
@@ -131,7 +131,6 @@ class Fullpage extends React.Component{
             .then(issPositionJSON => {
                 generalInfo.setNext(issPositionJSON.iss_position, issPositionJSON.timestamp);
                 this.setState({
-                    isDataCorrectlyFetched: true,
                     isLoading: false,
                 });
             })
@@ -150,3 +149,5 @@ class App extends React.Component {
 }
 
 export default App
+
+//TODO: add redux?
