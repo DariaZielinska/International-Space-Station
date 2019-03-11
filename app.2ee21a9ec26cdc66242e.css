@@ -1,19 +1,3 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box; }
-
-body {
-  background-color: #1B1E27;
-  color: white;
-  font-family: 'Space Mono', monospace;
-  font-size: 20px; }
-
-.background-sky {
-  background: #1B1E27 url(http://www.script-tutorials.com/demos/360/images/stars.png) top center;
-  z-index: 0;
-  animation: stars 15s linear infinite forwards; }
-
 .first {
   text-align: center;
   color: #9BA4C1; }
@@ -65,16 +49,16 @@ body {
 .second main {
   margin-top: 10vh;
   text-align: center; }
-  .second main .localisation {
+  .second main .location {
     display: flex;
     justify-content: center; }
-    .second main .localisation div {
+    .second main .location div {
       border: 3px solid #2C303F;
       border-radius: 50%;
       width: 200px;
       height: 200px;
       margin: 20px; }
-      .second main .localisation div p:first-child {
+      .second main .location div p:first-child {
         padding-top: 70px;
         font-weight: bolder; }
   .second main .time {
@@ -83,6 +67,35 @@ body {
   .second main .details {
     max-width: 650px;
     margin: 0 auto; }
+
+.buttonLoader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0; }
+  .buttonLoader button {
+    font-size: 1rem;
+    margin-right: 10px;
+    border: 1px solid #2C303F;
+    background: #D4D8E5;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+    letter-spacing: 2px; }
+
+.loader {
+  border: 4px solid #aaaaaa;
+  border-top: 4px solid #ffffff;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 2s linear infinite; }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
 
 @keyframes stars {
   0% {
@@ -133,4 +146,20 @@ body {
     transform: rotate(0); }
   30%, 37%, 70%, 77% {
     transform: rotate(-30deg); } }
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box; }
+
+body {
+  background-color: #1B1E27;
+  color: white;
+  font-family: 'Space Mono', monospace;
+  font-size: 20px; }
+
+.background-sky {
+  background: #1B1E27 url(http://www.script-tutorials.com/demos/360/images/stars.png) top center;
+  z-index: 0;
+  animation: stars 15s linear infinite forwards; }
 
