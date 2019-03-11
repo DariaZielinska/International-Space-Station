@@ -1,0 +1,40 @@
+.first{
+  text-align: center;
+  color: #9BA4C1;
+  h1{
+    font-family: 'Josefin Sans', sans-serif;
+    letter-spacing: 2px;
+    padding: 30px;
+    color: #D4D8E5;
+    margin: 0 auto;
+    font-size: 2rem;
+  }
+  p{
+    border-top: 1px solid #2C303F;
+    font-size: 1rem;
+    padding: 30px 0;
+    margin: 0 30px;
+  }
+  i{
+    font-size: 10rem;
+  }
+  button{
+    border: none;
+    background-color: transparent;
+    color: #D4D8E5;
+    cursor: pointer;
+    position: relative;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    i{
+      font-size: 2rem;
+      color: #9BA4C1;
+      animation: arrows 1000ms linear infinite;
+      position: absolute;
+      top: 80px;
+      right: calc(50%- 15px);
+    }
+  }
+}

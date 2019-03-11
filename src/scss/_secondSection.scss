@@ -1,0 +1,71 @@
+.second{
+  .rocket{
+    height: 30vh;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    i{
+      font-size: 5rem;
+      color: #9BA4C1;
+      position: absolute;
+      top:0;
+      left:0;
+      animation: flying 10s forwards linear infinite, rotation 10s forwards linear infinite;
+    }
+  }
+  main{
+    margin-top: 10vh;
+    text-align: center;
+    .localisation{
+      display: flex;
+      justify-content: center;
+      div{
+        border: 3px solid #2C303F;
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+        margin: 20px;
+        p:first-child{
+          padding-top: 70px;
+          font-weight: bolder;
+        }
+      }
+    }
+    .time{
+      color: #9BA4C1;
+      font-size: 1rem;
+    }
+    .details{
+      max-width: 650px;
+      margin: 0 auto;
+    }
+  }
+}
+
+.buttonLoader{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0;
+  button{
+    font-size: 1rem;
+    margin-right: 10px;
+    border: 1px solid #2C303F;
+    background: #D4D8E5;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+    letter-spacing: 2px;
+  }
+}
+
+//LOADER STYLES
+
+.loader {
+  border: 4px solid #aaaaaa;
+  border-top: 4px solid #ffffff;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 2s linear infinite;
+}

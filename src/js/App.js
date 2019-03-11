@@ -78,10 +78,7 @@ class Fullpage extends React.Component{
                                         <button onClick={this.showDetails} disabled={!this.state.isOk}> {this.state.buttonText} </button>
                                         {loader}
                                     </div>
-
-
                                     {details}
-
                                 </main>
                             </div>
 
