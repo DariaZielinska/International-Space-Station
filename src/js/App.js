@@ -2,56 +2,8 @@ import React from 'react'
 import ReactFullpage from '@fullpage/react-fullpage';
 import Timestamp from 'react-timestamp';
 import CountUp from 'react-countup';
+import generalInfo from '../js/GeneralInfo';
 
-let generalInfo = {
-    prev: {
-        longitude: 0,
-        latitude: 0,
-        timestamp: 0,
-    },
-    current: {
-        longitude: 0,
-        latitude: 0,
-        timestamp: 0,
-    },
-    distanceBetweenTwo: 0,
-    overallDistance: 0,
-    speed: 0,
-
-    setNext: function(position, timestamp){
-
-        if(this.current.timestamp === timestamp){
-            return;
-        }
-
-        //here: changing current data to previous
-        this.prev.longitude = this.current.longitude;
-        this.prev.latitude = this.current.latitude;
-        this.prev.timestamp = this.current.timestamp;
-
-        //do actualisation of current data
-        this.current.longitude = position.longitude;
-        this.current.latitude = position.latitude;
-        this.current.timestamp = timestamp;
-
-        if(this.prev.timestamp !== 0 ){
-            this.calculateDistance();
-            this.calculateSpeed();
-        }
-    },
-
-    calculateDistance: function() {
-        const degToRad = Math.PI / 180;
-        const R = 6371; // km Earth radius
-        let distance = R * degToRad * Math.sqrt(Math.pow(Math.cos(this.prev.latitude * degToRad ) * (this.prev.longitude - this.current.longitude) , 2) + Math.pow(this.prev.latitude - this.current.latitude, 2));
-        this.distanceBetweenTwo = distance;
-        this.overallDistance =  this.overallDistance + Math.floor(distance);
-    },
-
-    calculateSpeed: function(){
-        this.speed = (this.distanceBetweenTwo / (this.current.timestamp - this.prev.timestamp)).toFixed(2);
-    },
-};
 
 class Fullpage extends React.Component{
     constructor(props){
@@ -61,22 +13,30 @@ class Fullpage extends React.Component{
             all: generalInfo,
             isOk: false,
             isDetailsVisible: false,
+            isLoading: false,
             buttonText: "SHOW ME MORE DETAILS"
         }
     }
 
     render(){
-        let details = null;
+        let details;
+        let loader;
 
-        const previousDistance = this.state.all.overallDistance - this.state.all.distanceBetweenTwo;
+        const previousDistance = this.state.all.overallDistance - this.state.all.lastDistance;
         const currentDistance = this.state.all.overallDistance;
 
-        if (this.state.isDetailsVisible === true) {
+        if (this.state.isDetailsVisible) {
             details = (
                 <div className="details">
                     <p>It's <strong><CountUp start={previousDistance} end={currentDistance}/>km</strong> travelled by ISS since you're here!</p>
-                    <p>Based on these information, the calculated speed of ISS is <strong>{this.state.all.speed}km/s </strong> now, when average speed = 7,66km/s </p>
+                    <p>Based on these location, the calculated speed of ISS is <strong>{this.state.all.speed}km/s </strong> now, when average speed = 7.66km/s </p>
                 </div>
+            )
+        }
+
+        if(this.state.isLoading){
+            loader = (
+                <div className="loader"> </div>
             )
         }
 
@@ -114,8 +74,14 @@ class Fullpage extends React.Component{
                                         </div>
                                     </div>
                                     <p className="time">(<Timestamp time={this.state.all.current.timestamp} format='full'/>)</p>
-                                    <button onClick={this.showDetails} disabled={!this.state.isOk}> {this.state.buttonText} </button>
+                                    <div className="buttonLoader">
+                                        <button onClick={this.showDetails} disabled={!this.state.isOk}> {this.state.buttonText} </button>
+                                        {loader}
+                                    </div>
+
+
                                     {details}
+
                                 </main>
                             </div>
 
@@ -130,10 +96,10 @@ class Fullpage extends React.Component{
         this.getISS();
     };
 
+
+
     showDetails = () => {
-
         this.getISS();
-
         this.setState({
             buttonText: "REFRESH",
             isDetailsVisible: true,
@@ -141,12 +107,17 @@ class Fullpage extends React.Component{
     };
 
     getISS = () => {
+
+        this.setState({
+            isLoading: true,
+        });
         //TODO delete this and write async func
         //TODO loaders while getting data
         fetch('https://cors-anywhere.herokuapp.com/http://api.open-notify.org/iss-now.json')
-            .then(issPosition => {
-                if (issPosition.ok){
-                    return issPosition.json()
+            .then(result => {
+                // console.log(result);
+                if (result.ok){
+                    return result.json()
                 } else {
                     this.setState({
                         isError: true
@@ -156,7 +127,8 @@ class Fullpage extends React.Component{
             .then(issPositionJSON => {
                 generalInfo.setNext(issPositionJSON.iss_position, issPositionJSON.timestamp);
                 this.setState({
-                    isOk: true
+                    isOk: true,
+                    isLoading: false
                 });
             })
             .catch(()=>{

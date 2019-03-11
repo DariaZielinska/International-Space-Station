@@ -102,6 +102,43 @@ body{
   }
 }
 
+.buttonLoader{
+  display: flex;
+  justify-content: center;
+  button{
+    margin-right: 10px;
+  }
+}
+
+//LOADER STYLES
+
+.loader {
+  border: 4px solid #aaaaaa; /* Light grey */
+  border-top: 4px solid #ffffff; /* Blue */
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+
+
+@keyframes lds-spinner {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 @keyframes stars {
   0%{
     background-position: 100% 0;
