@@ -1,9 +1,7 @@
 # International Space Station
 
 ## About:
-Still in progess :)
-
-I'm working on app that shows details about ISS location. What is done already? I've got data from API, prepared object that keeps every information and almost done appearance. There is few things that needs to be done, for example to calculate distance traveled by station (based on API's location) and it's speed. Also, I'm going to rewrite this app with Redux for practice.
+I created an application showing the details of the ISS location, as well as calculating the distance traveled and the speed. Data is fetched from API, possible to update by clicking on button. What's more, I've created minimalistic cosmic look, it's really worth seeing.
 
 ## Available on:
 https://dariazielinska.github.io/International-Space-Station/
