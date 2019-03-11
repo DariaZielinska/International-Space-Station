@@ -10,17 +10,18 @@ class Fullpage extends React.Component{
         super(props);
         this.state = {
             isError: false,  // TODO: prepare solution when error appear
-            all: generalInfo,
-            isOk: false,
+            isDataCorrectlyFetched: false,
             isDetailsVisible: false,
             isLoading: false,
+            all: generalInfo,
             buttonText: "SHOW ME MORE DETAILS"
         }
     }
 
     render(){
-        let details;
         let loader;
+        let details;
+        let error;
 
         const previousDistance = this.state.all.overallDistance - this.state.all.lastDistance;
         const currentDistance = this.state.all.overallDistance;
@@ -38,6 +39,14 @@ class Fullpage extends React.Component{
             loader = (
                 <div className="loader"> </div>
             )
+        }
+
+        if(this.state.isError){
+            error = (
+                <div className="details">
+                    <p>There is something wrong with Internet connection, data or app :( Please, check your network and try again. If the problem persists, contact me by: dari.zielinska@gmail.com</p>
+                </div>
+                )
         }
 
         return <div className="background-sky">
@@ -75,10 +84,11 @@ class Fullpage extends React.Component{
                                     </div>
                                     <p className="time">(<Timestamp time={this.state.all.current.timestamp} format='full'/>)</p>
                                     <div className="buttonLoader">
-                                        <button onClick={this.showDetails} disabled={!this.state.isOk}> {this.state.buttonText} </button>
+                                        <button onClick={this.showDetails} disabled={!this.state.isDataCorrectlyFetched}> {this.state.buttonText} </button>
                                         {loader}
                                     </div>
                                     {details}
+                                    {error}
                                 </main>
                             </div>
 
@@ -92,8 +102,6 @@ class Fullpage extends React.Component{
     componentDidMount() {
         this.getISS();
     };
-
-
 
     showDetails = () => {
         this.getISS();
@@ -109,7 +117,6 @@ class Fullpage extends React.Component{
             isLoading: true,
         });
         //TODO delete this and write async func
-        //TODO loaders while getting data
         fetch('https://cors-anywhere.herokuapp.com/http://api.open-notify.org/iss-now.json')
             .then(result => {
                 // console.log(result);
@@ -124,8 +131,8 @@ class Fullpage extends React.Component{
             .then(issPositionJSON => {
                 generalInfo.setNext(issPositionJSON.iss_position, issPositionJSON.timestamp);
                 this.setState({
-                    isOk: true,
-                    isLoading: false
+                    isDataCorrectlyFetched: true,
+                    isLoading: false,
                 });
             })
             .catch(()=>{
