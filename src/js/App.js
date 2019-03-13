@@ -2,7 +2,7 @@ import React from 'react'
 import ReactFullpage from '@fullpage/react-fullpage';
 import Timestamp from 'react-timestamp';
 import CountUp from 'react-countup';
-import generalInfo from '../js/GeneralInfo';
+import dataContainer from './DataContainer';
 
 
 class Fullpage extends React.Component{
@@ -12,7 +12,7 @@ class Fullpage extends React.Component{
             isError: false,
             isDetailsVisible: false,
             isLoading: false,
-            all: generalInfo,
+            all: dataContainer,
             buttonText: "SHOW ME MORE DETAILS"
         }
     }
@@ -22,10 +22,11 @@ class Fullpage extends React.Component{
         let details;
         let error;
 
-        const previousDistance = this.state.all.overallDistance - this.state.all.lastDistance;
-        const currentDistance = this.state.all.overallDistance;
-
         if (this.state.isDetailsVisible) {
+
+            const previousDistance = this.state.all.overallDistance - this.state.all.lastDistance;
+            const currentDistance = this.state.all.overallDistance;
+
             details = (
                 <div className="details">
                     <p>It's <strong><CountUp start={previousDistance} end={currentDistance}/>km</strong> travelled by ISS since you're here!</p>
@@ -129,7 +130,7 @@ class Fullpage extends React.Component{
                 }
             })
             .then(issPositionJSON => {
-                generalInfo.setNext(issPositionJSON.iss_position, issPositionJSON.timestamp);
+                dataContainer.setNext(issPositionJSON.iss_position, issPositionJSON.timestamp);
                 this.setState({
                     isLoading: false,
                 });
@@ -149,5 +150,3 @@ class App extends React.Component {
 }
 
 export default App
-
-//TODO: add redux?

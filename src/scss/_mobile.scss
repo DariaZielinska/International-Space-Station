@@ -1,0 +1,18 @@
+@media (max-width: 500px) {
+    .second{
+      main{
+        .location{
+          div{
+            width: 150px;
+            height: 150px;
+            p:first-child{
+              padding-top: 45px;
+            }
+          }
+        }
+        .details{
+          font-size: 1rem;
+        }
+      }
+    }
+}

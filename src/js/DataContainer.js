@@ -1,4 +1,4 @@
-let generalInfo = {
+let dataContainer = {
     previous: {
         longitude: 0,
         latitude: 0,
@@ -46,4 +46,4 @@ let generalInfo = {
     },
 };
 
-export default generalInfo
+export default dataContainer
