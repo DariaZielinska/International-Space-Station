@@ -34,7 +34,7 @@
       right: calc(50%- 15px); }
 
 .second .rocket {
-  height: 30vh;
+  height: 25vh;
   position: absolute;
   top: 0;
   width: 100vw; }
@@ -146,6 +146,15 @@
     transform: rotate(0); }
   30%, 37%, 70%, 77% {
     transform: rotate(-30deg); } }
+
+@media (max-width: 500px) {
+  .second main .location div {
+    width: 150px;
+    height: 150px; }
+    .second main .location div p:first-child {
+      padding-top: 45px; }
+  .second main .details {
+    font-size: 1rem; } }
 
 * {
   padding: 0;
