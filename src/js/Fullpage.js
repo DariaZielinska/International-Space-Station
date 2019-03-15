@@ -4,7 +4,6 @@ import Timestamp from 'react-timestamp';
 import CountUp from 'react-countup';
 import dataContainer from './DataContainer';
 
-
 class Fullpage extends React.Component{
     constructor(props){
         super(props);
@@ -16,6 +15,45 @@ class Fullpage extends React.Component{
             buttonText: "SHOW ME MORE DETAILS"
         }
     }
+
+    componentDidMount() {
+        this.getISS();
+    };
+
+    showDetails = () => {
+        this.getISS();
+        this.setState({
+            buttonText: "REFRESH",
+            isDetailsVisible: true,
+        })
+    };
+
+    getISS = () => {
+        this.setState({
+            isLoading: true,
+        });
+        //TODO maybe delete this and write async func?
+        fetch('https://cors-anywhere.herokuapp.com/http://api.open-notify.org/iss-now.json')
+            .then(result => {
+                // console.log(result);
+                if (result.ok){
+                    return result.json()
+                } else {
+                    this.setState({
+                        isError: true
+                    })
+                }
+            })
+            .then(issPositionJSON => {
+                dataContainer.setNext(issPositionJSON.iss_position, issPositionJSON.timestamp);
+                this.setState({
+                    isLoading: false,
+                });
+            })
+            .catch(()=>{
+                this.setState({isError: true});
+            })
+    };
 
     render(){
         let loader;
@@ -49,7 +87,7 @@ class Fullpage extends React.Component{
                 )
         }
 
-        return <div className="background-sky">
+        return (<div className="background-sky">
             <ReactFullpage
                 render={({ state, fullpageApi }) => {
                     return (
@@ -97,56 +135,8 @@ class Fullpage extends React.Component{
                     );
                 }}
             />
-        </div>
-    }
-
-    componentDidMount() {
-        this.getISS();
-    };
-
-    showDetails = () => {
-        this.getISS();
-        this.setState({
-            buttonText: "REFRESH",
-            isDetailsVisible: true,
-        })
-    };
-
-    getISS = () => {
-
-        this.setState({
-            isLoading: true,
-        });
-        //TODO maybe delete this and write async func?
-        fetch('https://cors-anywhere.herokuapp.com/http://api.open-notify.org/iss-now.json')
-            .then(result => {
-                // console.log(result);
-                if (result.ok){
-                    return result.json()
-                } else {
-                    this.setState({
-                        isError: true
-                    })
-                }
-            })
-            .then(issPositionJSON => {
-                dataContainer.setNext(issPositionJSON.iss_position, issPositionJSON.timestamp);
-                this.setState({
-                    isLoading: false,
-                });
-            })
-            .catch(()=>{
-                this.setState({isError: true});
-            })
-    };
-}
-
-class App extends React.Component {
-    render() {
-        return (
-            <Fullpage/>
-        );
+        </div>)
     }
 }
 
-export default App
+export default Fullpage

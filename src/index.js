@@ -1,10 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './scss/main.scss'
-import App from './js/App'
-
+import Fullpage from './js/Fullpage'
 
 document.addEventListener('DOMContentLoaded', function(){
-    ReactDOM.render(<App/>, document.getElementById('app'))
+    ReactDOM.render(<Fullpage/>, document.getElementById('app'))
 });
 

@@ -1,4 +1,4 @@
-let dataContainer = {
+const dataContainer = {
     previous: {
         longitude: 0,
         latitude: 0,
@@ -18,7 +18,6 @@ let dataContainer = {
         if(this.current.timestamp === timestamp){
             return;
         }
-
         this.previous.longitude = this.current.longitude;
         this.previous.latitude = this.current.latitude;
         this.previous.timestamp = this.current.timestamp;
