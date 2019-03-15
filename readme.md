@@ -1,7 +1,7 @@
 # International Space Station
 
 ## About:
-I created an application showing the details of the ISS location, as well as calculating the distance traveled and the speed. Data is fetched from API, possible to update by clicking on button. What's more, I've created minimalistic cosmic look, it's really worth seeing.
+International-Space-Station is application showing the details of the ISS location, as well as calculating the distance traveled and the speed. Data is fetched from API, possible to update by clicking on button. What's more, I've created minimalistic cosmic look, it's really worth seeing.
 
 ## Available on:
 https://dariazielinska.github.io/International-Space-Station/
